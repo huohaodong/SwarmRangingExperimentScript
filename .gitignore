@@ -2,4 +2,5 @@
 cache
 data
 imgs
+*.csv
 __pycache__/
