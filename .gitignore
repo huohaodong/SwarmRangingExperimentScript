@@ -1,6 +1,5 @@
 .idea
 cache
-data
-imgs
 *.csv
+*.jpg
 __pycache__/
