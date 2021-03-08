@@ -82,4 +82,4 @@ if __name__ == '__main__':
     # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB3_SWARM.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=210)
 
-    # plot()
+    plot()
