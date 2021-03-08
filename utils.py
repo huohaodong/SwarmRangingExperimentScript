@@ -21,8 +21,10 @@ def log_ranging(link_uri, log_cfg_name='TSranging', log_var={}, log_save_path=".
             log_cfg.add_variable(log_cfg.name + '.' + log_var_name, log_var_type)
 
         with SyncLogger(scf, log_cfg) as logger:
-            time.sleep(keep_time_in_s)
-            for i in range(logger._queue.qsize() + 1):
+            end_time = time.time() + keep_time_in_s
+            while time.time() < end_time:
+                continue
+            for i in range(logger._queue.qsize()):
                 log_entry = logger.next()
                 timestamp = log_entry[0]
                 data = log_entry[1]

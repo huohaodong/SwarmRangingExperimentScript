@@ -6,6 +6,7 @@ import logging
 import pandas as pd
 import utils
 from matplotlib import pyplot as plt
+import time
 
 logging.basicConfig(level=logging.ERROR)
 
@@ -66,16 +67,19 @@ if __name__ == '__main__':
                'compute_from_4': 'uint16_t',
                'total_receive': 'uint16_t',
                'total_send': 'uint16_t',
-               'total_compute': 'uint16_t',
-               'receive_error': 'uint16_t',
-               'compute_error': 'uint16_t'}
+               'total_compute': 'uint16_t'}
+
 
     # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB3_AB.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=200)
+    #                   period_in_ms=100, keep_time_in_s=210)
+    #
     # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB3_AC.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=200)
+    #                   period_in_ms=100, keep_time_in_s=210)
+
     # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB3_AD.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=200)
+    #                   period_in_ms=100, keep_time_in_s=210)
+    #
     # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB3_SWARM.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=200)
-    plot()
+    #                   period_in_ms=100, keep_time_in_s=210)
+
+    # plot()
