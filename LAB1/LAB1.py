@@ -14,60 +14,51 @@ import logging
 import numpy as np
 import pandas as pd
 from multiprocessing import Process
+import utils
 
 logging.basicConfig(level=logging.ERROR)
 
 URI0 = 'usb://0'
 URI1 = 'radio://0/1/2M'
+URI2 = 'radio://0/2/2M'
+URI3 = 'radio://0/3/2M'
+URI4 = 'radio://0/4/2M'
+URI5 = 'radio://0/5/2M'
+URI6 = 'radio://0/6/2M'
+URI7 = 'radio://0/7/2M'
+URI8 = 'radio://0/8/2M'
+URI9 = 'radio://0/9/2M'
 
 
-def log_ranging(link_uri, period_in_ms=100, keep_time_in_s=5):
-    plot_timestamp = []
-    plot_compute_count = []
-    cflib.crtp.init_drivers()
-    with SyncCrazyflie(link_uri=link_uri, cf=Crazyflie(rw_cache="./cache")) as scf:
-
-        log_ranging = LogConfig(name='TSranging', period_in_ms=period_in_ms)
-        log_ranging.add_variable('TSranging.compute', 'uint16_t')
-        log_ranging.add_variable('TSranging.distTo1', 'uint16_t')
-        log_ranging.add_variable('TSranging.distTo2', 'uint16_t')
-        log_ranging.add_variable('TSranging.distTo3', 'uint16_t')
-        with SyncLogger(scf, log_ranging) as logger:
-            end_time = time.time() + keep_time_in_s
-            for log_entry in logger:
-                timestamp = log_entry[0]
-                data = log_entry[1]
-                logconf_name = log_entry[2]
-                plot_timestamp.append(timestamp)
-                plot_compute_count.append(data['TSranging.compute'])
-                print('编号：{0} | 测距总次数：{1} | 距离：{2} cm'.format(timestamp, data['TSranging.compute'],
-                                                              data['TSranging.distTo1']))
-
-                if time.time() > end_time:
-                    break
-
-    plot_timestamp = np.asarray(plot_timestamp)
-    plot_timestamp -= plot_timestamp[0]
-    plot_compute_count = np.asarray(plot_compute_count)
-    plot_compute_count -= plot_compute_count[0]
-
+def plot():
+    data = pd.read_csv('../data/LAB1.csv')
+    data.apply(pd.to_numeric)
+    data = data - data.iloc[0]
+    plt.plot(data['timestamp'], data['total_compute'])
     plt.xlabel('Time(ms)')
-    plt.ylabel('Accumulation')
-    plt.plot(plot_timestamp, plot_compute_count)
+    plt.ylabel('Accumulate Ranging Count')
     plt.savefig('../imgs/LAB1.jpg')
     plt.show()
 
-    df = pd.DataFrame(data={'time': plot_timestamp, 'Accumulation': plot_compute_count})
-    df.to_csv('../data/LAB1.csv', index=False)
-    # print(df)
 
-
-def move(link_uri, forward=0.4, back=0.4, velocity=0.1, height=0.2):
+def move(link_uri, forward=0.4, back=0.4, velocity=0.2, height=0.3):
+    cflib.crtp.init_drivers()
     with SyncCrazyflie(link_uri=link_uri, cf=Crazyflie(rw_cache="./cache")) as scf:
         with MotionCommander(crazyflie=scf, default_height=height) as mc:
-            mc.forward(distance_m=forward, velocity=velocity)
-            mc.back(distance_m=back, velocity=velocity)
+            time.sleep(2)
+            mc.forward(2, velocity=0.1)
+            time.sleep(20)
+            mc.back(2, velocity=0.1)
+            time.sleep(20)
 
 
 if __name__ == '__main__':
-    log_ranging(link_uri=URI0, period_in_ms=100, keep_time_in_s=15)
+    log_var = {
+        'total_receive': 'uint16_t',
+        'total_send': 'uint16_t',
+        'total_compute': 'uint16_t'
+    }
+
+    # utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB1.csv',
+    #                   log_var=log_var, period_in_ms=100, keep_time_in_s=100)
+    plot()
