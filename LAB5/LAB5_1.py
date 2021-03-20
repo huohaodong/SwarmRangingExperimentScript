@@ -67,6 +67,7 @@ def plot():
     plt.xticks(fontproperties='Times New Roman', rotation=0)
     plt.ylabel('Average Ranging Count')
     plt.legend(['before', 'after'])
+    plt.savefig('../imgs/LAB5-1.jpg')
     plt.show()
 
 
