@@ -31,11 +31,21 @@ def plot():
     data = pd.read_csv('../data/LAB1.csv')
     data.apply(pd.to_numeric)
     data = data - data.iloc[0]
-    # plt.plot(data.diff()['total_compute'] / data['total_compute'])
-    plt.plot(data['timestamp'], data['total_compute'])
+
+    plt.figure()
+    data_periods = data.diff(periods=100).dropna()
+    print(data_periods)
+    plt.xlabel('Time(100ms)')
+    plt.ylabel('Accumulation Rate')
+    plt.plot(data_periods['total_compute'] / 100)
+    plt.savefig('../imgs/LAB1.jpg')
+    plt.show()
+
+    plt.figure()
     plt.xlabel('Time(ms)')
     plt.ylabel('Accumulation')
-    plt.savefig('../imgs/LAB1.jpg')
+    plt.plot(data['timestamp'], data['total_compute'])
+    plt.xlabel('Time(ms)')
     plt.show()
 
 
