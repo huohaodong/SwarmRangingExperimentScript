@@ -23,30 +23,50 @@ URI9 = 'radio://0/9/2M'
 
 
 def plot():
-    data1 = pd.read_csv('../data/LAB5_1_1_A.csv')
-    data2 = pd.read_csv('../data/LAB5_1_1_B.csv')
-    data3 = pd.read_csv('../data/LAB5_1_1_C.csv')
-    data4 = pd.read_csv('../data/LAB5_1_1_D.csv')
-    data5 = pd.read_csv('../data/LAB5_1_1_E.csv')
-    data1.apply(pd.to_numeric)
-    data2.apply(pd.to_numeric)
-    data3.apply(pd.to_numeric)
-    data4.apply(pd.to_numeric)
-    data5.apply(pd.to_numeric)
-    data1 = (data1 - data1.iloc[0]).iloc[-1]
-    data2 = (data2 - data2.iloc[0]).iloc[-1]
-    data3 = (data3 - data3.iloc[0]).iloc[-1]
-    data4 = (data4 - data4.iloc[0]).iloc[-1]
-    data5 = (data5 - data5.iloc[0]).iloc[-1]
-    print(data1)
+    # 开启上下车前
+    data1_1 = pd.read_csv('../data/LAB5_1_1_A.csv').apply(pd.to_numeric)
+    data2_1 = pd.read_csv('../data/LAB5_1_1_B.csv').apply(pd.to_numeric)
+    data3_1 = pd.read_csv('../data/LAB5_1_1_C.csv').apply(pd.to_numeric)
+    data4_1 = pd.read_csv('../data/LAB5_1_1_D.csv').apply(pd.to_numeric)
+    data5_1 = pd.read_csv('../data/LAB5_1_1_E.csv').apply(pd.to_numeric)
+
+    data1_1 = (data1_1 - data1_1.iloc[0]).iloc[500]
+    data2_1 = (data2_1 - data2_1.iloc[0]).iloc[500]
+    data3_1 = (data3_1 - data3_1.iloc[0]).iloc[500]
+    data4_1 = (data4_1 - data4_1.iloc[0]).iloc[500]
+    data5_1 = (data5_1 - data5_1.iloc[0]).iloc[500]
+
+    # 开启上下车后
+    data1_2 = pd.read_csv('../data/LAB5_1_2_A.csv').apply(pd.to_numeric)
+    data2_2 = pd.read_csv('../data/LAB5_1_2_B.csv').apply(pd.to_numeric)
+    data3_2 = pd.read_csv('../data/LAB5_1_2_C.csv').apply(pd.to_numeric)
+    data4_2 = pd.read_csv('../data/LAB5_1_2_D.csv').apply(pd.to_numeric)
+    data5_2 = pd.read_csv('../data/LAB5_1_2_E.csv').apply(pd.to_numeric)
+
+    data1_2 = (data1_2 - data1_2.iloc[0]).iloc[500]
+    data2_2 = (data2_2 - data2_2.iloc[0]).iloc[500]
+    data3_2 = (data3_2 - data3_2.iloc[0]).iloc[500]
+    data4_2 = (data4_2 - data4_2.iloc[0]).iloc[500]
+    data5_2 = (data5_2 - data5_2.iloc[0]).iloc[500]
+
+    # 整合数据
     labels = ['A', 'B', 'C', 'D', 'E']
-    data = pd.Series(dtype='float64')
-    data['A'] = data1['total_compute'] / (len(labels) - 1)
-    data['B'] = data2['total_compute'] / (len(labels) - 1)
-    data['C'] = data3['total_compute'] / (len(labels) - 1)
-    data['D'] = data4['total_compute'] / (len(labels) - 1)
-    data['E'] = data5['total_compute'] / (len(labels) - 1)
-    data.plot(kind='bar')
+    data = pd.DataFrame(dtype='float64', columns=labels)
+    data = data.append({
+        'A': data1_1['total_compute'] / (len(labels) - 1), 'B': data2_1['total_compute'] / (len(labels) - 1),
+        'C': data3_1['total_compute'] / (len(labels) - 1), 'D': data4_1['total_compute'] / (len(labels) - 1),
+        'E': data5_1['total_compute'] / (len(labels) - 1)
+    }, ignore_index=True)
+    data = data.append({
+        'A': data1_2['total_compute'] / (len(labels) - 1), 'B': data2_2['total_compute'] / (len(labels) - 1),
+        'C': data3_2['total_compute'] / (len(labels) - 1), 'D': data4_2['total_compute'] / (len(labels) - 1),
+        'E': data5_2['total_compute'] / (len(labels) - 1)
+    }, ignore_index=True)
+    # 绘图
+    data.T.plot(kind='bar')
+    plt.xticks(fontproperties='Times New Roman', rotation=0)
+    plt.ylabel('Average Ranging Count')
+    plt.legend(['before', 'after'])
     plt.show()
 
 
@@ -74,14 +94,14 @@ if __name__ == '__main__':
     #                   period_in_ms=100, keep_time_in_s=70)
     # utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_E.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=70)
-    utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_A.csv', log_var=log_var,
-                      period_in_ms=100, keep_time_in_s=70)
-    utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_B.csv', log_var=log_var,
-                      period_in_ms=100, keep_time_in_s=70)
-    utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_C.csv', log_var=log_var,
-                      period_in_ms=100, keep_time_in_s=70)
-    utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_D.csv', log_var=log_var,
-                      period_in_ms=100, keep_time_in_s=70)
-    utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_E.csv', log_var=log_var,
-                      period_in_ms=100, keep_time_in_s=70)
-    # plot()
+    # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_A.csv', log_var=log_var,
+    #                   period_in_ms=100, keep_time_in_s=70)
+    # utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_B.csv', log_var=log_var,
+    #                   period_in_ms=100, keep_time_in_s=70)
+    # utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_C.csv', log_var=log_var,
+    #                   period_in_ms=100, keep_time_in_s=70)
+    # utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_D.csv', log_var=log_var,
+    #                   period_in_ms=100, keep_time_in_s=70)
+    # utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_E.csv', log_var=log_var,
+    #                   period_in_ms=100, keep_time_in_s=70)
+    plot()
