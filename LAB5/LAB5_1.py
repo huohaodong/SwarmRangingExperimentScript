@@ -23,11 +23,11 @@ URI9 = 'radio://0/9/2M'
 
 
 def plot():
-    data1 = pd.read_csv('../data/LAB5_1_A.csv')
-    data2 = pd.read_csv('../data/LAB5_1_B.csv')
-    data3 = pd.read_csv('../data/LAB5_1_C.csv')
-    data4 = pd.read_csv('../data/LAB5_1_D.csv')
-    data5 = pd.read_csv('../data/LAB5_1_E.csv')
+    data1 = pd.read_csv('../data/LAB5_1_1_A.csv')
+    data2 = pd.read_csv('../data/LAB5_1_1_B.csv')
+    data3 = pd.read_csv('../data/LAB5_1_1_C.csv')
+    data4 = pd.read_csv('../data/LAB5_1_1_D.csv')
+    data5 = pd.read_csv('../data/LAB5_1_1_E.csv')
     data1.apply(pd.to_numeric)
     data2.apply(pd.to_numeric)
     data3.apply(pd.to_numeric)
@@ -64,14 +64,24 @@ if __name__ == '__main__':
         'total_send': 'uint16_t',
         'total_compute': 'uint16_t'
     }
-    # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_A.csv', log_var=log_var,
+    # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_A.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_B.csv', log_var=log_var,
+    # utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_B.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_C.csv', log_var=log_var,
+    # utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_C.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_D.csv', log_var=log_var,
+    # utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_D.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_E.csv', log_var=log_var,
+    # utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_E.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=70)
-    plot()
+    utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_A.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_B.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_C.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_D.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_E.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    # plot()
