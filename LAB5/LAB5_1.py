@@ -66,7 +66,7 @@ def plot():
     data.T.plot(kind='bar')
     plt.xticks(fontproperties='Times New Roman', rotation=0)
     plt.ylabel('Average Ranging Count')
-    plt.legend(['before', 'after'])
+    plt.legend(['before', 'after'], framealpha=0)
     plt.savefig('../imgs/LAB5-1.jpg')
     plt.show()
 
