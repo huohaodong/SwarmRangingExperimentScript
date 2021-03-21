@@ -86,9 +86,9 @@ if __name__ == '__main__':
         'total_compute': 'uint16_t'
     }
     # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_2_1_A.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=150)
+    #                   period_in_ms=100, keep_time_in_s=120)
     # utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_2_1_B.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=110)
+    #                   period_in_ms=100, keep_time_in_s=115)
     # utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_2_1_C.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=110)
     # utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_2_1_D.csv', log_var=log_var,
@@ -105,4 +105,4 @@ if __name__ == '__main__':
     #                   period_in_ms=100, keep_time_in_s=110)
     # utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_2_2_E.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=110)
-    # plot()
+    plot()
