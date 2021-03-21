@@ -103,6 +103,6 @@ if __name__ == '__main__':
     #                   period_in_ms=100, keep_time_in_s=70)
     # utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_D.csv', log_var=log_var,
     #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_E.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_E.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
     plot()
