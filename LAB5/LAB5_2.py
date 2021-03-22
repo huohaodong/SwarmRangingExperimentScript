@@ -37,17 +37,17 @@ def plot():
     data5_1 = (data5_1 - data5_1.iloc[0]).iloc[1000]
 
     # 开启上下车后
-    # data1_2 = pd.read_csv('../data/LAB5_2_2_A.csv').apply(pd.to_numeric)
-    # data2_2 = pd.read_csv('../data/LAB5_2_2_B.csv').apply(pd.to_numeric)
-    # data3_2 = pd.read_csv('../data/LAB5_2_2_C.csv').apply(pd.to_numeric)
-    # data4_2 = pd.read_csv('../data/LAB5_2_2_D.csv').apply(pd.to_numeric)
-    # data5_2 = pd.read_csv('../data/LAB5_2_2_E.csv').apply(pd.to_numeric)
-    #
-    # data1_2 = (data1_2 - data1_2.iloc[0]).iloc[1000]
-    # data2_2 = (data2_2 - data2_2.iloc[0]).iloc[1000]
-    # data3_2 = (data3_2 - data3_2.iloc[0]).iloc[1000]
-    # data4_2 = (data4_2 - data4_2.iloc[0]).iloc[1000]
-    # data5_2 = (data5_2 - data5_2.iloc[0]).iloc[1000]
+    data1_2 = pd.read_csv('../data/LAB5_2_2_A.csv').apply(pd.to_numeric)
+    data2_2 = pd.read_csv('../data/LAB5_2_2_B.csv').apply(pd.to_numeric)
+    data3_2 = pd.read_csv('../data/LAB5_2_2_C.csv').apply(pd.to_numeric)
+    data4_2 = pd.read_csv('../data/LAB5_2_2_D.csv').apply(pd.to_numeric)
+    data5_2 = pd.read_csv('../data/LAB5_2_2_E.csv').apply(pd.to_numeric)
+
+    data1_2 = (data1_2 - data1_2.iloc[0]).iloc[1000]
+    data2_2 = (data2_2 - data2_2.iloc[0]).iloc[1000]
+    data3_2 = (data3_2 - data3_2.iloc[0]).iloc[1000]
+    data4_2 = (data4_2 - data4_2.iloc[0]).iloc[1000]
+    data5_2 = (data5_2 - data5_2.iloc[0]).iloc[1000]
 
     # 整合数据
     labels = ['A', 'B', 'C', 'D', 'E']
@@ -57,16 +57,16 @@ def plot():
         'C': data3_1['total_compute'] / (len(labels) - 1), 'D': data4_1['total_compute'] / (len(labels) - 1),
         'E': data5_1['total_compute'] / (len(labels) - 1)
     }, ignore_index=True)
-    # data = data.append({
-    #     'A': data1_2['total_compute'] / (len(labels) - 1), 'B': data2_2['total_compute'] / (len(labels) - 1),
-    #     'C': data3_2['total_compute'] / (len(labels) - 1), 'D': data4_2['total_compute'] / (len(labels) - 1),
-    #     'E': data5_2['total_compute'] / (len(labels) - 1)
-    # }, ignore_index=True)
+    data = data.append({
+        'A': data1_2['total_compute'] / (len(labels) - 1), 'B': data2_2['total_compute'] / (len(labels) - 1),
+        'C': data3_2['total_compute'] / (len(labels) - 1), 'D': data4_2['total_compute'] / (len(labels) - 1),
+        'E': data5_2['total_compute'] / (len(labels) - 1)
+    }, ignore_index=True)
     # 绘图
     data.T.plot(kind='bar')
     plt.xticks(fontproperties='Times New Roman', rotation=0)
     plt.ylabel('Average Ranging Count')
-    # plt.legend(['before', 'after'], framealpha=0)
+    plt.legend(['before', 'after'], framealpha=0)
     plt.savefig('../imgs/LAB5-2.jpg')
     plt.show()
 
