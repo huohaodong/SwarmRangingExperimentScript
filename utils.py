@@ -39,6 +39,7 @@ def log_ranging(link_uri, log_cfg_name='TSranging', log_var={}, log_save_path=".
                 print(temp)
 
     log_data.to_csv(log_save_path, index=False)
+    return log_data
 
 
 def async_log_cb(timestamp, data, logconf):
