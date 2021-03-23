@@ -85,24 +85,26 @@ if __name__ == '__main__':
         'total_send': 'uint16_t',
         'total_compute': 'uint16_t'
     }
-    # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_A.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_B.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_C.csv', log_var=log_var,
-    # #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_D.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_E.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_A.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_B.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_C.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_D.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
-    # utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_E.csv', log_var=log_var,
-    #                   period_in_ms=100, keep_time_in_s=70)
+    # LAB5_1_1_A 实验5的第一个实验的第一种情况（不开启上下车机制），无人机A的情况
+    # LAB5_1_2_X 实验5的第一个实验的第二种情况（开启上下车机制），无人机X的情况
+    utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_A.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_B.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_C.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_D.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_1_E.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI1, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_A.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI2, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_B.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI3, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_C.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI4, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_D.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
+    utils.log_ranging(link_uri=URI5, log_cfg_name='TSranging', log_save_path='../data/LAB5_1_2_E.csv', log_var=log_var,
+                      period_in_ms=100, keep_time_in_s=70)
     plot()
