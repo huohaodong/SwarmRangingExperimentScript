@@ -27,7 +27,7 @@ URI11 = 'radio://0/11/2M'
 URIS = [URI1, URI2, URI3, URI4, URI5]
 
 
-def plot(before, after, labels=['A', 'B', 'C', 'D', 'E']):
+def plot(before, after, labels=['A', 'B', 'C', 'D', 'E'], img_save_path='./default.jpg'):
     data = np.asarray([before, after])
     data = pd.DataFrame(data=data, dtype='float64', columns=labels)
     print(data)
@@ -37,7 +37,7 @@ def plot(before, after, labels=['A', 'B', 'C', 'D', 'E']):
     plt.xticks(fontproperties='Times New Roman', rotation=0)
     plt.ylabel('Average Ranging Count')
     plt.legend(['before', 'after'], framealpha=0)
-    # plt.savefig('../imgs/LAB5-1.jpg')
+    plt.savefig(img_save_path)
     plt.show()
 
 
@@ -89,7 +89,7 @@ if __name__ == '__main__':
                          [28114, 28199, 26760, 19938, 29715, 24878, 24296, 19053, 25736, 20347, 19055],
                          [21001, 25695, 26582, 28806, 16694, 16700, 27932, 24042, 23759, 24663, 24808]]).mean(axis=0)
     # after1 = np.sort(after1)[::-1]
-    plot(before=before1, after=after1, labels=labels)
+    plot(before=before1, after=after1, labels=labels, img_save_path='../imgs/LAB5-1.jpg')
 
     before2 = np.asarray([[8493, 9239, 10092, 10722, 11557, 12444, 13426, 14385, 13088, 11274, 8862],
                           [8623, 9206, 10019, 10690, 11412, 12537, 13491, 14545, 13233, 11368, 8881],
@@ -101,4 +101,4 @@ if __name__ == '__main__':
                          [7268, 7628, 8083, 8479, 9085, 9922, 10991, 14623, 15666, 16681, 16764],
                          [7282, 7696, 8110, 8326, 9049, 9975, 10958, 14575, 15693, 16731, 16758]
                          ]).mean(axis=0)
-    plot(before=before2, after=after2, labels=labels)
+    plot(before=before2, after=after2, labels=labels, img_save_path='../imgs/LAB5-2.jpg')
