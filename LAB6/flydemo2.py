@@ -50,6 +50,7 @@ import math
 import utils
 # Time for one step in second
 from cflib.positioning.position_hl_commander import PositionHlCommander
+from matplotlib import pyplot as plt
 
 STEP_TIME = 1
 uris = [
@@ -57,17 +58,17 @@ uris = [
     'radio://0/2/2M/E7E7E7E7E7',
     # Add more URIs if you want more copters in the swarm
 ]
-ht=0.5
-record_time = 100#记录时间
+ht = 0.5
+record_time = 100  # 记录时间
 velocity = 0.5
-circle_center=(-0.5,0.2)#圆心
-radius = 1.5#半径
-radius_step = math.pi/30
+circle_center = (-0.5, 0.2)  # 圆心
+radius = 1.5  # 半径
+radius_step = math.pi / 30
 sequence1 = [
     (circle_center[0], circle_center[1], ht, 140),
 ]
 sequence2 = [
-    (radius+circle_center[0], circle_center[1], ht, 5),
+    (radius + circle_center[0], circle_center[1], ht, 5),
 ]
 sequence2 = sequence2
 
@@ -75,6 +76,8 @@ seq_args = {
     uris[0]: [sequence1],
     uris[1]: [sequence2],
 }
+
+
 def wait_for_position_estimator(scf):
     print('Waiting for estimator to find position...')
 
@@ -135,7 +138,7 @@ def activate_mellinger_controller(scf, use_mellinger):
     scf.cf.param.set_value('stabilizer.controller', str(controller))
 
 
-def crazyflie_control(scf,sequence):
+def crazyflie_control(scf, sequence):
     log_var = {
         # 'total_receive': 'uint32_t',
         # 'total_send': 'uint32_t',
@@ -144,22 +147,22 @@ def crazyflie_control(scf,sequence):
     cf = scf.cf
 
     with PositionHlCommander(scf) as pc:
-        if cf.link_uri == uris[0]: #固定点
+        if cf.link_uri == uris[0]:  # 固定点
             for ele in sequence:
                 pc.go_to(ele[0], ele[1], ele[2])
                 time.sleep(ele[3])
-        else:   #旋转点
+        else:  # 旋转点
             for ele in sequence:
                 pc.go_to(ele[0], ele[1], ele[2])
                 time.sleep(ele[3])
-            #设置新的config
+            # 设置新的config
             log_cfg = LogConfig(name='TSranging', period_in_ms=100)
             for log_var_name, log_var_type in log_var.items():
                 log_cfg.add_variable(log_cfg.name + '.' + log_var_name, log_var_type)
             data1 = []
             data2 = []
             ######################记录log#########################
-            with SyncLogger(scf,log_cfg) as logger:
+            with SyncLogger(scf, log_cfg) as logger:
                 end_time = time.time() + 2
                 while time.time() < end_time:
                     continue
@@ -173,17 +176,18 @@ def crazyflie_control(scf,sequence):
                     for log_var_name, log_var_type in log_var.items():
                         temp[log_var_name] = data[log_cfg.name + '.' + log_var_name]
                     data1.append(temp)
-            cnt_begin= data1[-1]['total_compute']
+            cnt_begin = data1[-1]['total_compute']
             ###########################################
 
             ##########################开始转圈######################
             end_time = time.time() + record_time
             step_cnt = 0
             while time.time() < end_time:
-                pc.go_to(circle_center[0]+radius*math.cos(step_cnt*radius_step),circle_center[1]+radius*math.sin(step_cnt*radius_step),ht,velocity)
+                pc.go_to(circle_center[0] + radius * math.cos(step_cnt * radius_step),
+                         circle_center[1] + radius * math.sin(step_cnt * radius_step), ht, velocity)
                 step_cnt = step_cnt + 1
             #####################记录log###################
-            with SyncLogger(scf,log_cfg) as logger:
+            with SyncLogger(scf, log_cfg) as logger:
                 end_time = time.time() + 2
                 while time.time() < end_time:
                     continue
@@ -201,16 +205,66 @@ def crazyflie_control(scf,sequence):
             ##############################################
             print(cnt_end - cnt_begin)
 
-if __name__ == '__main__':
 
-    cflib.crtp.init_drivers(enable_debug_driver=False)
-    factory = CachedCfFactory(rw_cache='./cache')
-    for uri in uris:
-        with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
-            with PositionHlCommander(scf) as pc:
-                time.sleep(2)
-    with Swarm(uris, factory=factory) as swarm:
-        swarm.parallel_safe(activate_high_level_commander)
-        swarm.parallel_safe(reset_estimator)
-        print('Starting sequence!')
-        swarm.parallel_safe(crazyflie_control,args_dict=seq_args)
+def plot1():
+    velocity = [0.1, 0.2, 0.3, 0.4, 0.5]
+    radius_50cm = [943, 1807, 2662, 3102, 3385]  # 0.5m
+    radius_100cm = [687, 1025, 1415, 2041, 2342]  # 1m
+    radius_150cm = [654, 879, 1189, 1479, 1892]  # 1.5m
+    legend_labels = [
+        'distance = 0.5m',
+        'distance = 1m',
+        'distance = 1.5m',
+    ]
+    plt.plot(velocity, radius_50cm)
+    plt.plot(velocity, radius_100cm)
+    plt.plot(velocity, radius_150cm)
+    plt.xticks(velocity)
+    plt.legend(legend_labels, framealpha=0)
+    plt.xlabel('Velocity(m/s)')
+    plt.ylabel('Ranging count')
+    plt.savefig('../imgs/LAB6.jpg')
+    plt.show()
+
+
+def plot2():
+    distance = [0.5, 1, 1.5]
+    velocity_1 = [943, 687, 654]  # 0.1m/s
+    velocity_2 = [1807, 1025, 879]  # 0.2m/s
+    velocity_3 = [2662, 1415, 1189]  # 0.3m/s
+    velocity_4 = [3102, 2041, 1479]  # 0.4m/s
+    velocity_5 = [3385, 2342, 1892]  # 0.5m/s
+    legend_labels = [
+        'velocity = 0.1m/s',
+        'velocity = 0.2m/s',
+        'velocity = 0.3m/s',
+        'velocity = 0.4m/s',
+        'velocity = 0.5m/s',
+    ]
+    plt.plot(distance, velocity_1)
+    plt.plot(distance, velocity_2)
+    plt.plot(distance, velocity_3)
+    plt.plot(distance, velocity_4)
+    plt.plot(distance, velocity_5)
+    plt.xticks(distance)
+    plt.legend(legend_labels, framealpha=0)
+    plt.xlabel('Distance(m)')
+    plt.ylabel('Ranging count')
+    plt.savefig('../imgs/LAB6.jpg')
+    plt.show()
+
+
+if __name__ == '__main__':
+    # cflib.crtp.init_drivers(enable_debug_driver=False)
+    # factory = CachedCfFactory(rw_cache='./cache')
+    # for uri in uris:
+    #     with SyncCrazyflie(uri, cf=Crazyflie(rw_cache='./cache')) as scf:
+    #         with PositionHlCommander(scf) as pc:
+    #             time.sleep(2)
+    # with Swarm(uris, factory=factory) as swarm:
+    #     swarm.parallel_safe(activate_high_level_commander)
+    #     swarm.parallel_safe(reset_estimator)
+    #     print('Starting sequence!')
+    #     swarm.parallel_safe(crazyflie_control,args_dict=seq_args)
+    # plot1()
+    plot2()
